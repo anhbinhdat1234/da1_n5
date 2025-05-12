@@ -1,0 +1,31 @@
+# Bật chế độ RewriteEngine
+RewriteEngine On
+
+# Đảm bảo rằng bạn đang ở thư mục `public`
+RewriteBase /manga_shop/public/
+
+# Chuyển hướng tất cả các yêu cầu về `index.php` trừ khi là file hoặc thư mục thực tế
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+# Tùy chọn khác: Cấu hình giới hạn truy cập một số loại file (nếu cần)
+<FilesMatch "\.(htaccess|htpasswd|ini|phar|log|sh|bin|git|sql)">
+    Require all denied
+</FilesMatch>
+
+# Thiết lập các loại MIME
+AddType image/webp .webp
+AddType application/javascript .js
+AddType text/css .css
+
+# Bật GZIP để tối ưu hóa tải trang
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
+</IfModule>
+
+# Giới hạn kích thước tải lên và thời gian xử lý (nếu cần)
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_value max_input_time 300
