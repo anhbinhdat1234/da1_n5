@@ -1,33 +1,35 @@
 <?php
 include __DIR__ . "/layout/header.php";
+include __DIR__ . "/../../app/controllers/AuthController.php";
+include __DIR__ . "/../../app/includes/connect_db.php";
 
-if (isset($_GET['act'])) {
-    $act = $_GET['act'];
-    switch ($act) {
-        case 'shop_details':
-            include __DIR__ . "/page/shop-details.php";
-            break;
-        case 'contact':
-            include __DIR__ . "/page/contact.php";
-            break;
-        case 'login':
-            include __DIR__ . "/page/login.php";
-            break;
-        case 'checkout':
-            include __DIR__ . "/page/checkout.php";
-            break;
-        case 'shoping-cart':
-            include __DIR__ . "/page/shoping-cart.php";
-            break;
-        case 'shop-gird':
-            include __DIR__ . "/page/shop-grid.php";
-            break;
-        default:
-            include __DIR__ . "/page/home.php";
-            break;
-    }
-} else {
-    include __DIR__ . "/page/home.php";
+$pdo = pdo_get_connection();
+$authController = new AuthController($pdo);
+
+$act = $_GET['act'] ?? '';
+
+switch ($act) {
+    case 'shop_details':
+        include __DIR__ . "/page/shop-details.php";
+        break;
+    case 'contact':
+        include __DIR__ . "/page/contact.php";
+        break;
+    case 'login':
+        $authController->login();
+        break;
+    case 'register':
+        $authController->register();
+        break;
+    case 'checkout':
+        include __DIR__ . "/page/checkout.php";
+        break;
+    case 'shopping-cart':
+        include __DIR__ . "/page/shopping-cart.php";
+        break;
+    default:
+        include __DIR__ . "/page/home.php";
+        break;
 }
 
 include __DIR__ . "/layout/footer.php";
