@@ -97,7 +97,7 @@
                     <div class="contact__widget">
                         <span class="icon_mail_alt"></span>
                         <h4>Email</h4>
-                        <p>BaidaiNamCo@gmail.com</p>
+                        <p>DA1_N5@gmail.com</p>
                     </div>
                 </div>
             </div>

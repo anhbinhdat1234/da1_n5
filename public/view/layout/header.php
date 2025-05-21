@@ -1,7 +1,10 @@
 <?php
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 ?>
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -24,83 +27,129 @@
 </head>
 
 <body>
-<!-- Header Section Begin -->
-<header class="header">
-    <div class="header__top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="header__top__left">
-                        <ul>
-                            <li><i class="fa fa-envelope"></i> DA1_N5@gmail.com</li>
-                            <li>Free Shipping for all Order of $99</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="header__top__right">
-                        <div class="header__top__right__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                        </div>
-                        <div class="header__top__right__language">
-                            <img src="img/language.png" alt="">
-                            <div>English</div>
-                            <span class="arrow_carrot-down"></span>
+    <!-- Header Section Begin -->
+    <header class="header py-2">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__left">
                             <ul>
-                                <li><a href="#">Viet Nam</a></li>
-                                <li><a href="#">English</a></li>
+                                <li><i class="fa fa-envelope"></i> DA1_N5@gmail.com</li>
+                                <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
-                        <div class="header__top__right__auth">
-                            <div class=" d-flex mr-3">
-                            <a href="index.php?act=login" class="mr-3"><i class="fa fa-user"></i>Login</a>
-                            <a href="index.php?act=register" class="me-3"><i class="fa fa-user"></i> Register</a></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right d-flex justify-content-end align-items-center">
+                            <div class="header__top__right__social me-3">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+
+                            <?php if (isset($_SESSION['user'])): ?>
+                                <div class="me-3 text-dark pr-3">
+                                    👋 Hello <strong><?= htmlspecialchars($_SESSION['user']['name']) ?></strong>
+                                </div>
+                                <div class="dropdown">
+                                    <a href="#" class="text-dark" id="userDropdown" data-bs-toggle="dropdown">
+                                        <i class="fa fa-user-circle fa-lg"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" href="index.php?act=profile"><i class="fa fa-id-badge me-1"></i> Profile</a></li>
+                                        <li><a class="dropdown-item" href="index.php?act=settings"><i class="fa fa-cog me-1"></i> Setting</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item text-danger" href="index.php?act=logout"><i class="fa fa-sign-out me-1"></i> Log Out</a></li>
+                                    </ul>
+                                </div>
+                            <?php else: ?>
+                                <a href="index.php?act=login" class="text-dark mr-3 me-3"><i class="fa fa-user"></i> Login</a>
+                                <a href="index.php?act=register" class="text-dark"><i class="fa fa-user-plus"></i> Register</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="header__logo">
-                    <a href="index.php"><img src="img/logo.png" alt=""></a>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="index.php"><img src="../../public/img/logo.png" alt="Logo"></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Main Menu & Search -->
+                    <nav class="header__menu d-flex align-items-center justify-content-between">
+                        <ul class="mb-0 list-unstyled d-flex">
+                            <li class="me-3"><a href="index.php" class="active">Home</a></li>
+                            <li class="me-3 position-relative">
+                                <a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="index.php?act=shoping-cart">Shoping Cart</a></li>
+                                    <li><a href="index.php?act=checkout">Check Out</a></li>
+                                    <li><a href="index.php?act=blog-details">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="index.php?act=contact">Contact</a></li>
+                        </ul>
+                        <form action="index.php?act=search" method="GET" class="d-none d-md-block">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search?">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <!-- Mini-cart -->
+                    <div class="header__cart position-relative">
+                        <a href="#" class="text-dark d-flex align-items-center" id="cartDropdown" data-bs-toggle="dropdown">
+                            <i class="fa fa-shopping-bag fa-lg me-1"></i>
+                            <span class="badge bg-danger mr-4"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
+                            <span class="ms-2"> <b>Total:</b><?= number_format(get_cart_total(), 0, ',', '.') ?>₫</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" style="min-width: 280px;">
+                            <?php if (!empty($_SESSION['cart'])): ?>
+                                <?php foreach ($_SESSION['cart'] as $item): ?>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-grow-1">
+                                            <?= htmlspecialchars($item['name']) ?>
+                                            <small class="d-block">x<?= $item['quantity'] ?> (<?= number_format($item['price'], 0, ',', '.') ?>₫)</small>
+                                        </div>
+                                        <div><?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?>₫</div>
+                                    </div>
+                                <?php endforeach; ?>
+                                <div class="text-end border-top pt-2">
+                                    <strong>Total: <?= get_cart_total() ?>₫</strong>
+                                    <a href="index.php?act=shoping-cart" class="btn btn-primary btn-sm mt-2">View cart</a>
+                                </div>
+                            <?php else: ?>
+                                <p class="mb-0">Cart is empty</p>
+                                <?php endif; ?>`
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="index.php?act=shop-gird">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="index.php?act=shoping-cart">Shoping Cart</a></li>
-                                <li><a href="index.php?act=checkout">Check Out</a></li>
-                                <li><a href="index.php?act=blog-details">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="index.php?act=blog">Blog</a></li>
-                        <li><a href="index.php?act=contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="index.php?act=checkout"><i class="fa fa-shopping-bag"></i><span>3</span></a></li></ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
-                </div>
+            <div class="humberger__open d-lg-none mt-3">
+                <i class="fa fa-bars"></i>
             </div>
         </div>
-        <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-        </div>
-    </div>
-</header>
-<!-- Header Section End -->
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Scripts -->
+    <script src="../../public/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            document.querySelector('.header').classList.toggle('sticky', window.scrollY > 50);
+        });
+    </script>
+</body>
+
+</html>

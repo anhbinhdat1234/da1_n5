@@ -1,10 +1,7 @@
 <?php
-// include './includes/connect_db.php';
-class CategoryModel
+namespace App\Models;
+
+class CategoryModel extends BaseModel
 {
-    public function getAll() 
-    {
-        $sql = "SELECT * FROM categories";
-        return pdo_query($sql);
-    }
+    protected string $table = 'categories';
 }
